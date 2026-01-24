@@ -99,31 +99,24 @@ function hideLanguagePopup() {
 }
 
 function showWelcomePopup() {
-  document.getElementById("welcome-popup").style.display = "flex";
+  const welcomePopup = document.getElementById("welcome-popup");
+  // small delay for smooth transition
+  setTimeout(() => welcomePopup.classList.add("show"), 300);
 }
 
 function closePopup() {
-  document.getElementById("welcome-popup").style.display = "none";
+  document.getElementById("welcome-popup").classList.remove("show");
 }
 
 // ---------------- LANGUAGE SELECTION ----------------
 function setLanguage(lang) {
-  localStorage.setItem("language", lang);
-  applyLanguage(lang);
-  hideLanguagePopup();
-  showWelcomePopup();
+  applyLanguage(lang);   // Apply chosen language
+  hideLanguagePopup();   // Hide language popup
+  showWelcomePopup();    // Show welcome popup
 }
 
 // ---------------- ON PAGE LOAD ----------------
 window.addEventListener("DOMContentLoaded", () => {
-  const lang = localStorage.getItem("language");
-
-  if (!lang) {
-    // First visit → show language popup
-    showLanguagePopup();
-  } else {
-    // Language already chosen → apply translations & show welcome
-    applyLanguage(lang);
-    showWelcomePopup();
-  }
+  // Always show language popup first
+  showLanguagePopup();
 });
