@@ -5,341 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Al Hoceima Airport – Passenger Satisfaction Survey</title>
 
-  <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* Welcome Popup */
-#welcome-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  display: none; /* Hidden initially */
-}
-
-#welcome-popup .popup-content {
-  background: #ffffff;
-  padding: 35px 30px;
-  border-radius: 20px;
-  max-width: 480px;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-  animation: popupFade 0.5s ease;
-}
-
-#welcome-popup .popup-content h2 {
-  margin-top: 0;
-  color: #003366;
-  font-size: 26px;
-}
-
-#welcome-popup .popup-content p {
-  color: #555;
-  font-size: 16px;
-  margin: 20px 0;
-}
-
-#welcome-popup .popup-content button {
-  padding: 14px 28px;
-  font-size: 16px;
-  border-radius: 12px;
-  background: #003366;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-#welcome-popup .popup-content button:hover {
-  background: #0055aa;
-}
-
-@keyframes popupFade {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-    body {
-      font-family: 'Inter', sans-serif;
-      /* Adaptive background clarity: clearer on desktop, safe on mobile */
-      background: linear-gradient(rgba(11,28,45,0.30), rgba(11,28,45,0.30)),
-                  url('airport-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        background: linear-gradient(rgba(11,28,45,0.45), rgba(11,28,45,0.45)),
-                    url('airport-bg.jpg') no-repeat center center fixed;
-        background-size: cover;
-      }
-    }
-
-    .container {
-      max-width: 670px;
-      margin: 10px auto;
-      background: #ffffff;
-      padding: 40px 35px;
-      border-radius: 18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-    }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .logo img {
-      max-width: 220px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #0b1c2d;
-      margin-bottom: 6px;
-      font-size: 30px;
-      font-weight: 700;
-    }
-
-    h2 {
-      text-align: center;
-      font-weight: 500;
-      color: #4b4b4b;
-      margin-top: 0;
-      font-size: 16px;
-    }
-
-    .intro {
-      text-align: center;
-      margin: 28px 0 38px;
-      color: #333;
-      font-size: 15px;
-    }
-
-    .confidential {
-      background: linear-gradient(135deg, #e6f0fa, #f5faff);
-      padding: 16px;
-      border-left: 6px solid #f39c2d;
-      font-size: 13px;
-      color: #1a1a1a;
-      border-radius: 10px;
-      margin-bottom: 35px;
-    }
-
-    .question {
-      margin-bottom: 38px;
-    }
-
-    .question label.title {
-      display: block;
-      font-weight: 600;
-      color: #0b1c2d;
-      margin-bottom: 14px;
-      font-size: 16px;
-    }
-
-    .rating {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .rating input { display: none; }
-
-    .rating label {
-      flex: 1;
-      min-width: 130px;
-      text-align: center;
-      padding: 16px 10px;
-      border-radius: 16px;
-      border: 2px solid #d6d6d6;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      background: #fbfbfb;
-      font-size: 22px;
-    }
-
-    .rating label span {
-      display: block;
-      font-size: 13px;
-      margin-top: 8px;
-      color: #333;
-    }
-
-    .rating label:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-    }
-
-    .rating input:checked + label {
-      border-color: #4bb7e8;
-      background: linear-gradient(145deg, #eaf6fd, #ffffff);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
-    }
-
-    textarea, input[type="email"] {
-      width: 100%;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid #cfcfcf;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-
-    textarea:focus, input:focus {
-      outline: none;
-      border-color: #4bb7e8;
-    }
-
-    button {
-      width: 100%;
-      padding: 18px;
-      font-size: 19px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #f39c2d, #ffb347);
-      color: #0b1c2d;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    }
-
-    button:hover { opacity: 0.95; }
-
-    footer {
-      text-align: center;
-      margin-top: 35px;
-      font-size: 12px;
-      color: #6f6f6f;
-    }
-
-    @media (max-width: 600px) {
-      .rating label { min-width: 100%; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- Language Popup -->
+<div id="language-popup">
+  <div class="popup-content">
+    <h2 data-i18n="select_language"></h2>
+    <div class="lang-buttons">
+      <button onclick="setLanguage('en')">🇬🇧 English</button>
+      <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+      <button onclick="setLanguage('ar')">🇲🇦 العربية</button>
+    </div>
+  </div>
+</div>
 <!-- Welcome Popup -->
 <div id="welcome-popup">
   <div class="popup-content">
-    <h2>Welcome to Al Hoceima Airport!</h2>
-    <p>We value your feedback. Please take a moment to complete our passenger satisfaction survey.</p>
-    <button onclick="closePopup()"><i class="fa-solid fa-plane"></i> Start Survey</button>
+    <h2 data-i18n="welcome_title"></h2>
+    <p data-i18n="welcome_text"></p>
+    <button onclick="closePopup()"><i class="fa-solid fa-plane"></i> <span data-i18n="start"></span></button>
   </div>
 </div>
 
-  <div class="container">
+<div class="container">
 
-    <div class="logo">
-      <!-- Replace with official ONDA / Airports of Morocco logo -->
-      <img src="logo.png" alt="Airports of Morocco - ONDA" />
-    </div>
-
-    <h1>Passenger Satisfaction Survey</h1>
-    <h2>Al Hoceima – Cherif Al Idrissi Airport</h2>
-
-    <div class="intro">
-      Your opinion matters to us. This survey will help improve airport services and passenger experience.
-    </div>
-
-    <div class="confidential">
-      <strong>Confidentiality notice:</strong> All responses are anonymous and will be used exclusively for service improvement purposes by Airports of Morocco (ONDA).
-    </div>
-
-    <form action="https://formspree.io/f/mwvvlnlv" method="POST">
-
-      <div class="question">
-        <label class="title"><i class="fa-solid fa-plane"></i> Overall airport services</label>
-        <div class="rating">
-          <input type="radio" id="q1_1" name="Overall Services" value="Excellent" required>
-          <label for="q1_1">😄<span>Excellent</span></label>
-
-          <input type="radio" id="q1_2" name="Overall Services" value="Good">
-          <label for="q1_2">🙂<span>Good</span></label>
-
-          <input type="radio" id="q1_3" name="Overall Services" value="Average">
-          <label for="q1_3">😐<span>Average</span></label>
-
-          <input type="radio" id="q1_4" name="Overall Services" value="Poor">
-          <label for="q1_4">🙁<span>Poor</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="title"><i class="fa-solid fa-broom"></i> Cleanliness of terminal facilities</label>
-        <div class="rating">
-          <input type="radio" id="q2_1" name="Cleanliness" value="Excellent" required>
-          <label for="q2_1">✨<span>Excellent</span></label>
-
-          <input type="radio" id="q2_2" name="Cleanliness" value="Good">
-          <label for="q2_2">👍<span>Good</span></label>
-
-          <input type="radio" id="q2_3" name="Cleanliness" value="Average">
-          <label for="q2_3">👌<span>Average</span></label>
-
-          <input type="radio" id="q2_4" name="Cleanliness" value="Poor">
-          <label for="q2_4">👎<span>Poor</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="title"><i class="fa-solid fa-user-tie"></i> Courtesy and professionalism of staff</label>
-        <div class="rating">
-          <input type="radio" id="q3_1" name="Staff" value="Excellent" required>
-          <label for="q3_1">🤝<span>Excellent</span></label>
-
-          <input type="radio" id="q3_2" name="Staff" value="Good">
-          <label for="q3_2">🙂<span>Good</span></label>
-
-          <input type="radio" id="q3_3" name="Staff" value="Average">
-          <label for="q3_3">😐<span>Average</span></label>
-
-          <input type="radio" id="q3_4" name="Staff" value="Poor">
-          <label for="q3_4">🙁<span>Poor</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="title"><i class="fa-solid fa-comment"></i> Comments or suggestions</label>
-        <textarea name="Comments" rows="4" placeholder="Please share your experience or suggestions..."></textarea>
-      </div>
-
-      <div class="question">
-        <label class="title"><i class="fa-solid fa-envelope"></i> Email (optional)</label>
-        <input type="email" name="Email" placeholder="example@email.com" />
-      </div>
-
-      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Submit Feedback</button>
-
-    </form>
-
-    <footer>
-      © Al Hoceima Airport – Airports of Morocco (ONDA)
-    </footer>
-
+  <div class="logo">
+    <img src="logo.png" alt="Airports of Morocco - ONDA" />
   </div>
-<script>
-  // Show popup on page load
-  window.onload = function() {
-    document.getElementById('welcome-popup').style.display = 'flex';
-  };
 
-  // Close popup when user clicks the button
-  function closePopup() {
-    document.getElementById('welcome-popup').style.display = 'none';
-  }
-</script>
+  <h1 data-i18n="title"></h1>
+  <h2 data-i18n="subtitle"></h2>
+
+  <div class="intro" data-i18n="intro"></div>
+
+  <div class="confidential">
+    <strong data-i18n="confidential_title"></strong>
+    <span data-i18n="confidential_text"></span>
+  </div>
+
+  <form action="https://formspree.io/f/mwvvlnlv" method="POST">
+
+    <div class="question">
+      <label class="title" data-i18n="q1"></label>
+      <div class="rating">
+        <label><input type="radio" name="Overall Services" value="Excellent" required> 😄 <span data-i18n="excellent"></span></label>
+        <label><input type="radio" name="Overall Services" value="Good"> 🙂 <span data-i18n="good"></span></label>
+        <label><input type="radio" name="Overall Services" value="Average"> 😐 <span data-i18n="average"></span></label>
+        <label><input type="radio" name="Overall Services" value="Poor"> 🙁 <span data-i18n="poor"></span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="title" data-i18n="q2"></label>
+      <div class="rating">
+        <label><input type="radio" name="Cleanliness" value="Excellent" required> ✨ <span data-i18n="excellent"></span></label>
+        <label><input type="radio" name="Cleanliness" value="Good"> 👍 <span data-i18n="good"></span></label>
+        <label><input type="radio" name="Cleanliness" value="Average"> 👌 <span data-i18n="average"></span></label>
+        <label><input type="radio" name="Cleanliness" value="Poor"> 👎 <span data-i18n="poor"></span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="title" data-i18n="q3"></label>
+      <div class="rating">
+        <label><input type="radio" name="Staff" value="Excellent" required> 🤝 <span data-i18n="excellent"></span></label>
+        <label><input type="radio" name="Staff" value="Good"> 🙂 <span data-i18n="good"></span></label>
+        <label><input type="radio" name="Staff" value="Average"> 😐 <span data-i18n="average"></span></label>
+        <label><input type="radio" name="Staff" value="Poor"> 🙁 <span data-i18n="poor"></span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="title" data-i18n="comments"></label>
+      <textarea name="Comments" rows="4" data-i18n-placeholder="comment_placeholder"></textarea>
+
+    </div>
+
+    <div class="question">
+      <label class="title" data-i18n="email"></label>
+      <input type="email" name="Email" placeholder="example@email.com">
+    </div>
+
+    <button type="submit" data-i18n="submit"></button>
+
+  </form>
+
+  <footer data-i18n="footer"></footer>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
